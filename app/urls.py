@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import index
+from app.views import logic, HomePageView
 
 app_name = 'app'
 
 urlpatterns = [
-    path('', index, name='index'),
+    path('', HomePageView.as_view(), name='home'),
+    path('logic/', logic, name='logic')
 ]

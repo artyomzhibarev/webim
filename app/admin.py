@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from app.models import Number
+
+
+@admin.register(Number)
+class NumberAdmin(admin.ModelAdmin):
+    list_display = ('value', 'created_at')

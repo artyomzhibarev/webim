@@ -1,9 +1,24 @@
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.views.generic import TemplateView
+
+from app.models import Number
 from django.shortcuts import render
 
 
-def index(request):
-    return render(request, 'app/main.html', context={
-        'user': request.user,
-    })
+class HomePageView(TemplateView):
+    template_name = "app/main.html"
 
 
+# def index(request):
+#     return render(request, 'app/main.html', context={
+#         'user': request.user,
+#     })
+
+
+@login_required(login_url='')
+def logic(request):
+    num = Number.objects.last().value
+    if request.is_ajax() and request.method == 'POST':
+        return JsonResponse(data={'random_number': num}, status=200)
+    return render(request, 'app/logic.html', context={'random_number': num})

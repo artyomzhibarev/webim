@@ -1,0 +1,39 @@
+{% extends "app/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    {#    {% if process == "connect" %}#}
+    {#        <h1>{% blocktrans with provider.name as provider %}Connect {{ provider }}{% endblocktrans %}</h1>#}
+    {##}
+    {#        <p>{% blocktrans with provider.name as provider %}You are about to connect a new third party account from#}
+    {#            {{ provider }}.{% endblocktrans %}</p>#}
+    {#    {% else %}#}
+
+
+{#    <h1>{% blocktrans with provider.name as provider %}Sign In Via {{ provider }}{% endblocktrans %}</h1>#}
+
+    {#        <p>{% blocktrans with provider.name as provider %}You are about to sign in using a third party account from#}
+    {#            {{ provider }}.{% endblocktrans %}</p>#}
+    {#    {% endif %}#}
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="container text-dark mt-5">
+            <div class="row justify-content-md-center">
+                <div class="col-md-5 bg-grey p-3">
+                    <h1>{% blocktrans with provider.name as provider %}Sign In Via {{ provider }}{% endblocktrans %}</h1>
+                    <form class="form-signin">
+                        <button type="submit" class="btn btn btn-dark btn-lg btn-block"
+                                role="button" aria-pressed="true">{% trans "Continue" %}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+{% endblock %}
+
+
+{#                    <a href="{% provider_login_url 'github' %}" class="btn btn btn-dark btn-lg btn-block"#}
+{#                       role="button" aria-pressed="true">Sign in with Github</a>#}
