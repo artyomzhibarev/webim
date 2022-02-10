@@ -37,4 +37,4 @@ setInterval(function myFunction() {
         }
 
     });
-}, 5000);
+}, 4000);
