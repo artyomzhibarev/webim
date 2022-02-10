@@ -1,4 +1,4 @@
-import random
+from random import randint
 
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -21,7 +21,8 @@ class HomePageView(TemplateView):
 @login_required(login_url='')
 def logic(request):
     # num = Number.objects.last().value
-    num = random.randint(0, 9999)
+    Number.objects.create(value=randint(0, 9999))
+    num = Number.objects.last()
     if request.is_ajax() and request.method == 'POST':
         return JsonResponse(data={'random_number': num}, status=200)
     return render(request, 'app/logic.html', context={'random_number': num})
