@@ -20,9 +20,10 @@ class HomePageView(TemplateView):
 
 @login_required(login_url='')
 def logic(request):
-    Number.objects.create(value=randint(0, 9999))
     if request.is_ajax() and request.method == 'POST':
+        Number.objects.create(value=randint(0, 9999))
         num = Number.objects.last()
         return JsonResponse(data={'random_number': num}, status=200)
+    Number.objects.create(value=randint(0, 9999))
     num = Number.objects.last()
     return render(request, 'app/logic.html', context={'random_number': num})
