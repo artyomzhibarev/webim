@@ -2,6 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 from django.shortcuts import render
 from app.redis_server import redis_instance
+
+
 # from app.management.commands.num_gen import singleton
 
 
@@ -16,8 +18,9 @@ def logic(request):
             rand_num = int(redis_instance.get('rand_num'))
         except TypeError:
             print(f"int() argument must be a string, a bytes-like object or a number, not NoneType")
-        finally:
-            rand_num = 0
+            return render(request, 'app/logic.html',
+                          context={'random_number': 0})
+        else:
             return render(request, 'app/logic.html',
                           context={'random_number': rand_num})
     return render(request, 'app/logic.html')
