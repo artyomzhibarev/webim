@@ -11,12 +11,27 @@
                 <div class="alert alert-success d-flex justify-content-center" role="alert">
                     <h1>
                         <div class="random_number" id="random_number">
-                            {{ random_number }}
+
                         </div>
                     </h1>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.1.0/justgage.js"></script>#}
+    <script>
+        const systemSocket = new WebSocket(`ws://${window.location.host}/ws/logic/`);
+        systemSocket.onopen = function (e) {
+            systemSocket.send(JSON.stringify({"message": 'Sending message to server'}));
+        };
+        systemSocket.onmessage = function (e) {
+            const data = JSON.parse(e.data);
+            {#rand_num.refresh(data.random_number);#}
+            document.getElementById("random_number").textContent = JSON.stringify(JSON.parse(data.random_number));
+        };
+        systemSocket.onclose = function (e) {
+            console.error('Chat socket closed');
+        };
+    </script>
 {% endblock %}

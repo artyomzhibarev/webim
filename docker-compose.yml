@@ -7,7 +7,8 @@ services:
     volumes:
       - .:/code/
       - static_volume:/code/static
-    command: gunicorn -b 0.0.0.0:8000 -w 4 webim.wsgi:application --log-file -
+    command: daphne -b 0.0.0.0 -p 8000 webim.asgi:application
+#    command: gunicorn -b 0.0.0.0:8000 -w 4 webim.asgi:application -k uvicorn.workers.UvicornWorker
     ports:
       - "8000:8000"
     env_file: .env
@@ -34,32 +35,32 @@ services:
     env_file: .env
     volumes:
       - ./redis.conf:/redis.conf
-  celery_w:
-    container_name: celery_webim
-    restart: always
-    build: .
-    command: celery -A webim worker -l INFO -E
-    volumes:
-      - .:/code/
-    env_file:
-      - .env
-    depends_on:
-      - redis_w
-    links:
-      - redis_w
-  celery_beat_w:
-    container_name: celery_beat_w
-    restart: always
-    build: .
-    command: celery -A webim beat -l info
-    volumes:
-      - .:/code/
-    env_file:
-      - .env
-    depends_on:
-      - redis_w
-    links:
-      - redis_w
+#  celery_w:
+#    container_name: celery_webim
+#    restart: always
+#    build: .
+#    command: celery -A webim worker -l INFO -E
+#    volumes:
+#      - .:/code/
+#    env_file:
+#      - .env
+#    depends_on:
+#      - redis_w
+#    links:
+#      - redis_w
+#  celery_beat_w:
+#    container_name: celery_beat_w
+#    restart: always
+#    build: .
+#    command: celery -A webim beat -l info
+#    volumes:
+#      - .:/code/
+#    env_file:
+#      - .env
+#    depends_on:
+#      - redis_w
+#    links:
+#      - redis_w
 volumes:
     pgdata:
     static_volume:

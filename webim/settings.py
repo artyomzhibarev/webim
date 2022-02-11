@@ -28,7 +28,7 @@ environ.Env.read_env()
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = True
 
 ALLOWED_HOSTS = env('DJANGO_ALLOWED_HOSTS').split(",")
 
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
+    'channels',
     # Project apps:
     'app',
 ]
@@ -104,6 +105,7 @@ LOGIN_REDIRECT_URL = 'app:logic'
 # ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'webim.wsgi.application'
+ASGI_APPLICATION = 'webim.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -178,5 +180,16 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [(env('REDIS_HOST'), 6379)],
+        },
+    },
+}
+
+STREAM_SOCKET_GROUP_NAME = 'system_detail'
 
 

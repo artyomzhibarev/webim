@@ -20,21 +20,21 @@ function getCookie(name) {
     });
 
 
-setInterval(function myFunction() {
-    $.ajax({
-        url: '/logic/',
-        type: 'post',
-        headers: {
-            'X-CSRFToken': getCookie('csrftoken')
-        },
-        success: function (response) {
-            document.getElementById("random_number").innerHTML = response.random_number;
-
-        },
-        error:
-        function () {
-            document.getElementById("random_number").innerHTML = 'Cannot get number';
-        }
-
-    });
-}, 4000);
+// setInterval(function myFunction() {
+//     $.ajax({
+//         url: '/logic/',
+//         type: 'post',
+//         headers: {
+//             'X-CSRFToken': getCookie('csrftoken')
+//         },
+//         success: function (response) {
+//             document.getElementById("random_number").innerHTML = response.random_number;
+//
+//         },
+//         error:
+//         function () {
+//             document.getElementById("random_number").innerHTML = 'Cannot get number';
+//         }
+//
+//     });
+// }, 1000);

@@ -5,5 +5,5 @@ app_name = 'app'
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='home'),
-    path('logic/', logic, name='logic')
+    path('logic/', logic, name='logic'),
 ]
