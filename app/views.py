@@ -16,8 +16,8 @@ def logic(request):
             rand_num = int(redis_instance.get('rand_num'))
         except TypeError:
             print(f"int() argument must be a string, a bytes-like object or a number, not NoneType")
-            rand_num = 0
         finally:
+            rand_num = 0
             return render(request, 'app/logic.html',
                           context={'random_number': rand_num})
     return render(request, 'app/logic.html')
