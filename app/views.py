@@ -13,7 +13,6 @@ class HomePageView(TemplateView):
 def logic(request):
     if request.method == 'GET':
         rand_num = int(redis_instance.get('rand_num'))
-        print(rand_num)
         return render(request, 'app/logic.html',
                       context={'random_number': rand_num})
     return render(request, 'app/logic.html')
