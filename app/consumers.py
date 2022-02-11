@@ -1,8 +1,6 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.conf import settings
-
-# from app.management.commands.num_gen import singleton
 from app.redis_server import redis_instance
 
 
@@ -28,7 +26,7 @@ class RandomNumberConsumer(AsyncWebsocketConsumer):
         # Receive data from WebSocket
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
-        print(message)
+        # print(message)
         # Print message that receive from Websocket
 
         # Send data to group

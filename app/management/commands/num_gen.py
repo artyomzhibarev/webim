@@ -4,7 +4,6 @@ from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 from django.conf import settings
 from django.core.management import BaseCommand
-from app.singleton import Singleton
 from app.redis_server import redis_instance
 
 
