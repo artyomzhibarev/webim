@@ -9,7 +9,5 @@ python manage.py collectstatic --noinput
 echo "Apply database migrations"
 python manage.py migrate
 
-# Run number generator
-python manage.py num_gen
 
 exec "$@"
