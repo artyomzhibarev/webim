@@ -181,11 +181,13 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+REDIS_HOST = env('REDIS_HOST')
+REDIS_PORT = 6379
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [(env('REDIS_HOST'), 6379)],
+            "hosts": [(REDIS_HOST, REDIS_PORT)],
         },
     },
 }

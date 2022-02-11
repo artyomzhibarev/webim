@@ -2,24 +2,8 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.conf import settings
 
-
-class Singleton:
-    def __new__(cls):
-        if not hasattr(cls, 'instance'):
-            cls.instance = super(Singleton, cls).__new__(cls)
-        return cls.instance
-
-    def __init__(self):
-        self.val = 0
-
-    def set(self, new_value):
-        self.val = new_value
-
-    def get(self):
-        return self.val
-
-
-singleton_1 = Singleton()
+# from app.management.commands.num_gen import singleton
+from app.redis_server import redis_instance
 
 
 class RandomNumberConsumer(AsyncWebsocketConsumer):
@@ -44,7 +28,7 @@ class RandomNumberConsumer(AsyncWebsocketConsumer):
         # Receive data from WebSocket
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
-        # print(message)
+        print(message)
         # Print message that receive from Websocket
 
         # Send data to group
@@ -55,7 +39,7 @@ class RandomNumberConsumer(AsyncWebsocketConsumer):
             {
                 'type': 'random_num',
                 'data': {
-                    'random_number': singleton_1.get()
+                    'random_number': int(redis_instance.get('rand_num'))
                 }
             }
         )

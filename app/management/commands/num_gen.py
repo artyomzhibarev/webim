@@ -4,13 +4,16 @@ from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 from django.conf import settings
 from django.core.management import BaseCommand
-from app.consumers import Singleton
-from app.consumers import singleton_1
+from app.singleton import Singleton
+from app.redis_server import redis_instance
+
+
+# singleton = Singleton()
 
 
 def func():
-    # singleton = Singleton()
-    singleton_1.set(randint(0, 9999))
+    # singleton.set(randint(0, 9999))
+    redis_instance.set('rand_num', randint(0, 9999))
     group_name = settings.STREAM_SOCKET_GROUP_NAME
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
@@ -18,7 +21,7 @@ def func():
         {
             'type': 'random_num',
             'data': {
-                'random_number': singleton_1.get(),
+                'random_number': int(redis_instance.get('rand_num')),
             }
         }
     )
