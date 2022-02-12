@@ -26,7 +26,7 @@ class RandomNumberConsumer(AsyncWebsocketConsumer):
         # Receive data from WebSocket
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
-        # print(message)
+        print(message)
         # Print message that receive from Websocket
 
         # Send data to group
@@ -38,7 +38,7 @@ class RandomNumberConsumer(AsyncWebsocketConsumer):
             {
                 'type': 'random_num',
                 'data': {
-                    'random_number': int(redis_instance.get('rand_num'))
+                    'random_number': redis_instance.get('rand_num')
                 }
             }
         )

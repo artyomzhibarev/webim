@@ -17,6 +17,7 @@ services:
       - redis_w
   pgdb_w:
     image: postgres
+    restart: always
     container_name: pgdb_webim
     volumes:
       - pgdata:/var/lib/postgresql/data/
@@ -26,41 +27,40 @@ services:
     expose:
       - "5432"
   redis_w:
+    restart: always
     container_name: redis_webim
     image: redis
-#    command:
-#      - redis-sever
     ports:
       - "6379:6379"
     env_file: .env
     volumes:
       - ./redis.conf:/redis.conf
-#  celery_w:
-#    container_name: celery_webim
-#    restart: always
-#    build: .
-#    command: celery -A webim worker -l INFO -E
-#    volumes:
-#      - .:/code/
-#    env_file:
-#      - .env
-#    depends_on:
-#      - redis_w
-#    links:
-#      - redis_w
-#  celery_beat_w:
-#    container_name: celery_beat_w
-#    restart: always
-#    build: .
-#    command: celery -A webim beat -l info
-#    volumes:
-#      - .:/code/
-#    env_file:
-#      - .env
-#    depends_on:
-#      - redis_w
-#    links:
-#      - redis_w
+  celery_w:
+    container_name: celery_webim
+    restart: always
+    build: .
+    command: celery -A webim worker -l INFO -E
+    volumes:
+      - .:/code/
+    env_file:
+      - .env
+    depends_on:
+      - redis_w
+    links:
+      - redis_w
+  celery_beat_w:
+    container_name: celery_beat_w
+    restart: always
+    build: .
+    command: celery -A webim beat -l info
+    volumes:
+      - .:/code/
+    env_file:
+      - .env
+    depends_on:
+      - redis_w
+    links:
+      - redis_w
 volumes:
     pgdata:
     static_volume:

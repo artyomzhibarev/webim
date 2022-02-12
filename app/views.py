@@ -14,7 +14,7 @@ class HomePageView(TemplateView):
 @login_required(login_url='')
 def logic(request):
     if request.method == 'GET':
-        rand_num = int(redis_instance.get('rand_num'))
+        rand_num = redis_instance.get('rand_num')
         return render(request, 'app/logic.html',
                       context={'random_number': rand_num})
 
