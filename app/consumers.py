@@ -33,9 +33,6 @@ class RandomNumberConsumer(AsyncWebsocketConsumer):
 
         # print(f'From consumers: {singleton}')
         number = redis_instance.get('rand_num')
-        if type(number) != int:
-            print(37)
-            number = 0
         await self.channel_layer.group_send(
             self.group_name,
             {
