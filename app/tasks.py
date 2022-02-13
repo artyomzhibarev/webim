@@ -14,9 +14,9 @@ logger = get_task_logger(__name__)
 @shared_task
 def get_rand_num():
     redis_instance.set('rand_num', randint(0, 9999))
+    random_number = redis_instance.get('rand_num')
     group_name = settings.STREAM_SOCKET_GROUP_NAME
     channel_layer = get_channel_layer()
-    random_number = redis_instance.get('rand_num')
     async_to_sync(channel_layer.group_send)(
         group_name,
         {
