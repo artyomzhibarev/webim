@@ -29,7 +29,7 @@
         systemSocket.onmessage = function (e) {
             const data = JSON.parse(e.data);
             {#rand_num.refresh(data.random_number);#}
-            document.getElementById("random_number").textContent = JSON.stringify(data.random_number);
+            document.getElementById("random_number").textContent = data.random_number;
         };
         systemSocket.onclose = function (e) {
             console.error('Chat socket closed');
